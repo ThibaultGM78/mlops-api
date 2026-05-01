@@ -26,11 +26,12 @@ steps:
       - 'managed'
       - '--allow-unauthenticated'
 
-# LE TIMEOUT DOIT ÊTRE ICI (À la racine)
+# Timeout global du build
 timeout: 1200s
 
 options:
-  machineType: 'N1_HIGHCPU_8'
+  # Remplacement de N1 par E2 pour la compatibilité régionale
+  machineType: 'E2_HIGHCPU_8'
   logging: CLOUD_LOGGING_ONLY 
 
 images:
