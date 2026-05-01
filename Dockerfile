@@ -19,4 +19,5 @@ EXPOSE $PORT
 
 # Lancement de l'API
 # Attention : ne pas lancer en daemon !
-CMD ["uv", "run", "gunicorn", "app:app", "-b", "0.0.0.0:80", "-w", "4"]
+# Utilise la variable PORT fournie par Cloud Run, sinon 8080 par défaut
+CMD ["sh", "-c", "uv run gunicorn app:app -b 0.0.0.0:${PORT:-8080} -w 4"]
