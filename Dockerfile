@@ -19,4 +19,4 @@ EXPOSE $PORT
 
 # Lancement de l'API
 # Attention : ne pas lancer en daemon !
-CMD ["uv", "run", "gunicorn", "app:app", "-b", "0.0.0.0:80", "-w", "4"
+CMD ["uv", "run", "gunicorn", "app:app", "-b", "0.0.0.0:80", "-w", "4"]
