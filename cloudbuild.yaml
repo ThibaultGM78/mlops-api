@@ -11,7 +11,7 @@ steps:
     args: ['push', 'gcr.io/$PROJECT_ID/mlops-api:$SHORT_SHA']
 
   # Étape 3 : Déploiement sur Cloud Run
-  -- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: "Deploy to Cloud Run"
     entrypoint: gcloud
     args: 
