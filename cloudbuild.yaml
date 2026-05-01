@@ -1,11 +1,11 @@
 # Liste des Cloud Builders : https://console.cloud.google.com/gcr/images/cloud-builders/GLOBAL
 steps:
-  # Étape 1 : Construction de l'image avec un tag unique (SHA)
+  # Étape 1 : Construction de l'image
   - name: "gcr.io/cloud-builders/docker"
     id: "Build API Image"
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/mlops-api:$SHORT_SHA', '.']
 
-  # Étape 2 : Envoi de l'image vers le registre
+  # Étape 2 : Envoi de l'image
   - name: 'gcr.io/cloud-builders/docker'
     id: "Push API Image"
     args: ['push', 'gcr.io/$PROJECT_ID/mlops-api:$SHORT_SHA']
@@ -24,13 +24,13 @@ steps:
       - 'europe-west1'
       - '--platform'
       - 'managed'
-      - '--allow-unauthenticated' # Permet l'accès public, à retirer si tu veux une API privée
+      - '--allow-unauthenticated'
 
-# Configuration des ressources et correction de l'erreur de logs
+# LE TIMEOUT DOIT ÊTRE ICI (À la racine)
+timeout: 1200s
+
 options:
   machineType: 'N1_HIGHCPU_8'
-  timeout: 1200s
-  # Cette ligne corrige l'erreur "if build.service_account is specified..."
   logging: CLOUD_LOGGING_ONLY 
 
 images:
