@@ -26,7 +26,8 @@ class Model:
         )
 
         # In MLFlow v3, construct the artifact URI and use mlflow.artifacts.download_artifacts()
-        artifact_uri = f"runs:/{model_version.run_id}/transform_pipeline.pkl"
+        # artifact_uri = f"runs:/{model_version.run_id}/transform_pipeline.pkl"
+        artifact_uri = f"runs:/{model_version.run_id}/model.pkl"
         pipeline_path = mlflow.artifacts.download_artifacts(
             artifact_uri=artifact_uri
         )  # ty: ignore[possibly-missing-attribute]
