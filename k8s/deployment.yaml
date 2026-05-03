@@ -25,7 +25,7 @@ spec:
         - name: MLFLOW_SERVER
           value: "http://34.52.189.7/"
         - name: MLFLOW_REGISTRY_NAME
-          value: "purchase_predict"
+          value: "purchase_predict_v2"
         ports:
         - containerPort: 80
         resources:
