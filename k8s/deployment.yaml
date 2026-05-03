@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: pod-purchase-predict
-        image: gcr.io/training-ml-engineer/purchase-predict-api
+        image: gcr.io/microservice-489715/purchase-predict-api:DOCKER_TAG
         env:
         - name: PORT
           value: "80"
@@ -35,4 +35,3 @@ spec:
           limits:
             memory: "1G"
             cpu: "1"
-            
