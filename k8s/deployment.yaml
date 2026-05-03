@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: purchase-predict
+  labels:
+    app: purchase-predict
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pod-purchase-predict
+  template:
+    metadata:
+      labels:
+        app: pod-purchase-predict
+    spec:
+      containers:
+      - name: pod-purchase-predict
+        image: gcr.io/training-ml-engineer/purchase-predict-api
+        env:
+        - name: PORT
+          value: "80"
+        - name: ENV
+          value: "staging"
+        - name: MLFLOW_SERVER
+          value: "http://34.52.189.7/"
+        - name: MLFLOW_REGISTRY_NAME
+          value: "purchase_predict"
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "0.5G"
+            cpu: "0.5"
+          limits:
+            memory: "1G"
+            cpu: "1"

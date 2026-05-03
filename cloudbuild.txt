@@ -1,0 +1,42 @@
+# Liste des Cloud Builders : https://console.cloud.google.com/gcr/images/cloud-builders/GLOBAL
+steps:
+  # Étape 1 : Construction de l'image
+  - name: "gcr.io/cloud-builders/docker"
+    id: "Build API Image"
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/mlops-api:$SHORT_SHA', '.']
+
+  # Étape 2 : Envoi de l'image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: "Push API Image"
+    args: ['push', 'gcr.io/$PROJECT_ID/mlops-api:$SHORT_SHA']
+
+  # Étape 3 : Déploiement sur Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: "Deploy to Cloud Run"
+    entrypoint: gcloud
+    args: 
+      - 'run'
+      - 'deploy'
+      - 'mlops-api'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/mlops-api:$SHORT_SHA'
+      - '--region'
+      - 'europe-west1'
+      - '--port'
+      - '8080'           # 👈 On repasse sur le port standard
+      - '--timeout'
+      - '300'            # 👈 On donne 5 min au conteneur pour démarrer
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+
+# Timeout global du build
+timeout: 1200s
+
+options:
+  # Remplacement de N1 par E2 pour la compatibilité régionale
+  machineType: 'E2_HIGHCPU_8'
+  logging: CLOUD_LOGGING_ONLY 
+
+images:
+  - 'gcr.io/$PROJECT_ID/mlops-api:$SHORT_SHA'
